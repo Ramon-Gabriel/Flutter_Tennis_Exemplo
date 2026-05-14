@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_beachup/models/club.dart';
+import 'package:flutter_beachup/service/club_service.dart';
 
 // <!--( StatefulWidget )--> Cria widgets que podem mudar dinamicamente.
 //Ideal para listas, formulários, pesquisas, animações e telas com atualização
@@ -12,39 +13,23 @@ class ClubListScreen extends StatefulWidget {
 
 class _ClubListScreenState extends State<ClubListScreen> {
   String urlLogo = "https://www.cvtc.com.br/image/beachtennis.jpg";
-  List<Club> clubList = [
-    Club(
-      name: "Quadra Sumaré",
-      location: "Maringá",
-      state: "PR",
-      cover: "Outdoor",
-      price: 19.90,
-      urlImage:
-          "https://images.tcdn.com.br/img/img_prod/1235983/kit_completo_para_quadra_de_beach_tennis_rede_de_protecao_263_1_ea5ab5a7588b6af1553f9c8378cedb09.jpg",
-    ),
-    Club(
-      name: "Quadra JD Oasis",
-      location: "Maringá",
-      state: "PR",
-      cover: "Outdoor",
-      price: 19.90,
-      urlImage:
-          "https://images.tcdn.com.br/img/img_prod/1235983/kit_completo_para_quadra_de_beach_tennis_rede_de_protecao_263_1_ea5ab5a7588b6af1553f9c8378cedb09.jpg",
-    ),
-    Club(
-      name: "Quadra Sumaré",
-      location: "Maringá",
-      state: "PR",
-      cover: "Outdoor",
-      price: 19.90,
-      urlImage:
-          "https://images.tcdn.com.br/img/img_prod/1235983/kit_completo_para_quadra_de_beach_tennis_rede_de_protecao_263_1_ea5ab5a7588b6af1553f9c8378cedb09.jpg",
-    ),
-  ];
+  //Apagou-se as variaveis daqui
+  List<Club> clubList = [];
 
   TextEditingController pesquisaController = TextEditingController();
 
   List<Club> listaFiltrada = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    ClubService service = ClubService();
+    service.getClubs().then((Value) {
+      clubList = value;
+      setState(() {});
+    });
+  }
 
   //toUpperCase e loercase
   void pesquisaClubs() {
